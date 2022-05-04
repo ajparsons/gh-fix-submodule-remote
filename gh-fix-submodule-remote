@@ -1,0 +1,28 @@
+#!/bin/bash
+
+auth=0
+
+for arg in "$@" 
+do 
+    if [ "$arg" == "--auth" ]
+    then
+        auth=1
+    fi
+done
+
+if [ "$auth" == "1" ]
+then
+    # Clear all credential helpers
+    git config --global --unset-all 'credential.https://github.com.helper'
+    git config --global --add 'credential.https://github.com.helper' '!gh auth git-credential'
+
+    # Clear GITHUB_TOKEN, so we can re-auth
+    export GITHUB_TOKEN=
+
+    # Login to the GH CLI
+    gh auth login
+
+    echo "Successfully added 'gh auth git-credential' as your git credential helper."
+fi
+
+python3 ${0%/*}/fix_submodule_remote.py
