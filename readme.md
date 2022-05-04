@@ -18,6 +18,6 @@ gh extension install ajparsons/gh-fix-submodule-remote
 ## Run
 
 
-`gh gh-fix-submodule-remote --auth`
+`gh fix-submodule-remote --auth`
 
 This will extract the username and token from the gh cli storage, and modify the URLs of the github submodules. 
